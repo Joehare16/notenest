@@ -1,1 +1,4 @@
+com\nestenote\notenest\model\Note.class
+com\nestenote\notenest\repository\NoteRepository.class
 com\nestenote\notenest\NotenestBackendApplication.class
+com\nestenote\notenest\controller\NoteController.class
