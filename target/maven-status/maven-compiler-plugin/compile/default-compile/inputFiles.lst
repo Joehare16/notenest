@@ -1,9 +1,15 @@
-C:\Users\Joe\OneDrive - University of Kent\Uni\Work\Individual\notenest\src\main\java\com\nestenote\notenest\repository\NoteRepository.java
-C:\Users\Joe\OneDrive - University of Kent\Uni\Work\Individual\notenest\src\main\java\com\nestenote\notenest\exception\GlobalExceptionHandler.java
-C:\Users\Joe\OneDrive - University of Kent\Uni\Work\Individual\notenest\src\main\java\com\nestenote\notenest\dto\NoteResponseDTO.java
-C:\Users\Joe\OneDrive - University of Kent\Uni\Work\Individual\notenest\src\main\java\com\nestenote\notenest\NotenestBackendApplication.java
-C:\Users\Joe\OneDrive - University of Kent\Uni\Work\Individual\notenest\src\main\java\com\nestenote\notenest\service\NoteService.java
-C:\Users\Joe\OneDrive - University of Kent\Uni\Work\Individual\notenest\src\main\java\com\nestenote\notenest\exception\ValidationException.java
-C:\Users\Joe\OneDrive - University of Kent\Uni\Work\Individual\notenest\src\main\java\com\nestenote\notenest\dto\NoteRequestDTO.java
-C:\Users\Joe\OneDrive - University of Kent\Uni\Work\Individual\notenest\src\main\java\com\nestenote\notenest\model\Note.java
-C:\Users\Joe\OneDrive - University of Kent\Uni\Work\Individual\notenest\src\main\java\com\nestenote\notenest\controller\NoteController.java
+C:\Users\joeha\Documents\Work\Projects\notenest\src\main\java\com\nestenote\notenest\repository\UserRepository.java
+C:\Users\joeha\Documents\Work\Projects\notenest\src\main\java\com\nestenote\notenest\model\Note.java
+C:\Users\joeha\Documents\Work\Projects\notenest\src\main\java\com\nestenote\notenest\repository\NoteRepository.java
+C:\Users\joeha\Documents\Work\Projects\notenest\src\main\java\com\nestenote\notenest\model\Role.java
+C:\Users\joeha\Documents\Work\Projects\notenest\src\main\java\com\nestenote\notenest\service\NoteService.java
+C:\Users\joeha\Documents\Work\Projects\notenest\src\main\java\com\nestenote\notenest\dto\NoteResponseDTO.java
+C:\Users\joeha\Documents\Work\Projects\notenest\src\main\java\com\nestenote\notenest\NotenestBackendApplication.java
+C:\Users\joeha\Documents\Work\Projects\notenest\src\main\java\com\nestenote\notenest\controller\NoteController.java
+C:\Users\joeha\Documents\Work\Projects\notenest\src\main\java\com\nestenote\notenest\security\JwtUtil.java
+C:\Users\joeha\Documents\Work\Projects\notenest\src\main\java\com\nestenote\notenest\exception\ApiError.java
+C:\Users\joeha\Documents\Work\Projects\notenest\src\main\java\com\nestenote\notenest\model\User.java
+C:\Users\joeha\Documents\Work\Projects\notenest\src\main\java\com\nestenote\notenest\dto\NoteRequestDTO.java
+C:\Users\joeha\Documents\Work\Projects\notenest\src\main\java\com\nestenote\notenest\exception\GlobalExceptionHandler.java
+C:\Users\joeha\Documents\Work\Projects\notenest\src\main\java\com\nestenote\notenest\exception\NoteNotFoundException.java
+C:\Users\joeha\Documents\Work\Projects\notenest\src\main\java\com\nestenote\notenest\exception\ValidationException.java

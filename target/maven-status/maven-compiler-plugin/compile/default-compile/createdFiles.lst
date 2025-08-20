@@ -1,4 +1,10 @@
+com\nestenote\notenest\dto\NoteResponseDTO.class
+com\nestenote\notenest\exception\NoteNotFoundException.class
 com\nestenote\notenest\model\Note.class
+com\nestenote\notenest\service\NoteService.class
 com\nestenote\notenest\controller\NoteController.class
+com\nestenote\notenest\exception\ValidationException.class
+com\nestenote\notenest\exception\GlobalExceptionHandler.class
 com\nestenote\notenest\repository\NoteRepository.class
+com\nestenote\notenest\dto\NoteRequestDTO.class
 com\nestenote\notenest\NotenestBackendApplication.class
