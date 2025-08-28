@@ -8,7 +8,11 @@ import org.springframework.web.bind.annotation.*;
 
 import com.nestenote.notenest.dto.NoteRequestDTO;
 import com.nestenote.notenest.dto.NoteResponseDTO;
+
 import jakarta.validation.Valid;
+import org.springframework.security.oauth2.jwt.Jwt;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +21,7 @@ import java.util.Optional;
 @RequestMapping("/api/notes")
 @CrossOrigin(origins = "*")
 public class NoteController {
+
     private final NoteService noteService;
 
     public NoteController(NoteService noteService) {
@@ -24,32 +29,37 @@ public class NoteController {
     }
 
     @GetMapping
-    public List<NoteResponseDTO> getAllNotes() {
-        return noteService.getAllNotes();
+    public List<NoteResponseDTO> getAllNotes(@AuthenticationPrincipal Jwt jwt) {
+        String userID = jwt.getSubject();
+        return noteService.getAllUserNotes(userID);
     }
 
     @PostMapping
-    public NoteResponseDTO createNote(@RequestBody NoteRequestDTO note) {
-        return noteService.createNote(note);
+    public NoteResponseDTO createNote(@Valid @RequestBody NoteRequestDTO note,@AuthenticationPrincipal Jwt jwt) {
+        String userID = jwt.getSubject();
+        return noteService.createNote(note, userID);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<NoteResponseDTO> getNoteById(@PathVariable Long id) {
-        return noteService.getNoteById(id)
+    public ResponseEntity<NoteResponseDTO> getNoteById(@PathVariable Long id,@AuthenticationPrincipal Jwt jwt) {
+        String userID = jwt.getSubject();
+        return noteService.getNoteByID(id,userID)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<NoteResponseDTO> updateNote(@PathVariable Long id, @RequestBody NoteRequestDTO updatedNote) {
-        return noteService.updateNote(id, updatedNote)
+    public ResponseEntity<NoteResponseDTO> updateNote(@PathVariable Long id,@AuthenticationPrincipal Jwt jwt, @Valid @RequestBody NoteRequestDTO updatedNote) {
+        String userID = jwt.getSubject();
+        return noteService.updateNote(id, updatedNote,userID)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteNote(@PathVariable Long id) {
-        boolean deleted = noteService.deleteNote(id);
+    public ResponseEntity<Void> deleteNote(@PathVariable Long id,@AuthenticationPrincipal Jwt jwt) {
+        String userID = jwt.getSubject();
+        boolean deleted = noteService.deleteNote(id,userID);
         if (deleted) {
             return ResponseEntity.noContent().build();
         } else {

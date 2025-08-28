@@ -21,6 +21,10 @@ public class Note {
 
     private LocalDateTime createdAt;
 
+    //each note is associated with a user so we can autehnticate
+    @Column(name = "user_id", nullable = false)
+    private String userId;
+
     public Note() {
         this.createdAt = LocalDateTime.now();
     }
@@ -42,6 +46,10 @@ public class Note {
         return createdAt;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
     // Setters
     public void setId(Long id) {
         this.id = id;
@@ -57,5 +65,8 @@ public class Note {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

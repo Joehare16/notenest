@@ -1,15 +1,20 @@
 package com.nestenote.notenest.security;
 
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.security.Keys;
+import javax.crypto.SecretKey;
 import org.springframework.stereotype.Component;
 
+import java.security.Key;
 import java.util.Date;
 
 @Component
 public class JwtUtil {
 
+    private final String SECRET = "SUPER-SUPER-SUPER-SUPER-SUPER-SUPER-SECRET-KEY";
+
     //password for valdating and creating tokens
-    private final String SECRET_KEY = "secretKey";
+    private final SecretKey SECRET_KEY = Keys.hmacShaKeyFor(SECRET.getBytes());
     //each token lasts an hour
     private final long EXPIRATION = 1000 * 60 * 60;
 
@@ -19,13 +24,14 @@ public class JwtUtil {
             .setSubject(email)
             .setIssuedAt(new Date())
             .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION))
-            .signWith(SignatureAlgorithm.HS256, SECRET_KEY)
+            .signWith(SECRET_KEY)
             .compact();
     }
     public String extractEmail(String token)
     {
-        return Jwts.parser()
+        return Jwts.parserBuilder()
             .setSigningKey(SECRET_KEY)
+            .build()
             .parseClaimsJws(token)
             .getBody()
             .getSubject();    
@@ -37,8 +43,9 @@ public class JwtUtil {
     }
 
     private boolean isTokenExpired(String token){
-        Date expiration = Jwts.parser()
+        Date expiration = Jwts.parserBuilder()
             .setSigningKey(SECRET_KEY)
+            .build()
             .parseClaimsJws(token)
             .getBody()
             .getExpiration();
