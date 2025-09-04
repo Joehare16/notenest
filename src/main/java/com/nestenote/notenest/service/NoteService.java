@@ -2,10 +2,13 @@ package com.nestenote.notenest.service;
 
 import com.nestenote.notenest.model.Note;
 import com.nestenote.notenest.repository.NoteRepository;
+import com.nestenote.notenest.repository.UserRepository;
 import com.nestenote.notenest.dto.NoteRequestDTO;
 import com.nestenote.notenest.dto.NoteResponseDTO;
 import com.nestenote.notenest.exception.NoteNotFoundException;
 import com.nestenote.notenest.exception.ValidationException;
+
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -17,10 +20,12 @@ import java.util.stream.Collectors;
 public class NoteService {
 
     private final NoteRepository noteRepository;
+    private final UserRepository userRepository;
 
     // Constructor injection of repository
-    public NoteService(NoteRepository noteRepository) {
+    public NoteService(NoteRepository noteRepository,UserRepository userRepository) {
         this.noteRepository = noteRepository;
+        this.userRepository = userRepository;
     }
 
     // converts user inputs restricted by DTOs to a full database entity
@@ -54,7 +59,7 @@ public class NoteService {
     // Get one note by ID
     public Optional<NoteResponseDTO> getNoteByID(Long id, String userID) {
         Note note = noteRepository.findById(id)
-                 .filter(n -> n.getUserId().equals(userID))
+                .filter(n -> n.getUserId().equals(userID))
                 .orElseThrow(() -> new NoteNotFoundException(id));
                 
         return Optional.of(mapToDTO(note));

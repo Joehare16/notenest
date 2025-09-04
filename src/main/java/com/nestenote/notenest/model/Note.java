@@ -23,7 +23,7 @@ public class Note {
 
     //each note is associated with a user so we can autehnticate
     @Column(name = "user_id", nullable = false)
-    private String userId;
+    private String userID;
 
     public Note() {
         this.createdAt = LocalDateTime.now();
@@ -47,7 +47,7 @@ public class Note {
     }
 
     public String getUserId() {
-        return userId;
+        return userID;
     }
 
     // Setters
@@ -66,7 +66,7 @@ public class Note {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setUserId(String userID) {
+        this.userID = userID;
     }
 }
