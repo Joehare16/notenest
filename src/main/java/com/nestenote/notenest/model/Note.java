@@ -22,8 +22,9 @@ public class Note {
     private LocalDateTime createdAt;
 
     //each note is associated with a user so we can autehnticate
-    @Column(name = "user_id", nullable = false)
-    private String userID;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     public Note() {
         this.createdAt = LocalDateTime.now();
@@ -46,8 +47,8 @@ public class Note {
         return createdAt;
     }
 
-    public String getUserId() {
-        return userID;
+    public User getUser() {
+        return user;
     }
 
     // Setters
@@ -66,7 +67,7 @@ public class Note {
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     }
-    public void setUserId(String userID) {
-        this.userID = userID;
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -2,6 +2,7 @@ package com.nestenote.notenest.controller;
 
 import com.nestenote.notenest.dto.AuthRequest;
 import com.nestenote.notenest.exception.ValidationException;
+import com.nestenote.notenest.model.User;
 import com.nestenote.notenest.security.JwtUtil;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 import com.nestenote.notenest.security.JwtUtil;
 import java.util.Map;
+import com.nestenote.notenest.repository.UserRepository;
 
 @RestController
 @RequestMapping("/auth")
@@ -21,10 +23,13 @@ public class AuthController {
     //handles jwt tokens 
     private final JwtUtil jwtUtil;
 
-    public AuthController(AuthenticationManager authenticationManager, JwtUtil jwtUtil)
+    private final UserRepository userRepository;
+
+    public AuthController(AuthenticationManager authenticationManager, JwtUtil jwtUtil, UserRepository userRepository)
     {
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
+        this.userRepository = userRepository;
     }
 
     @PostMapping("/login")
@@ -37,8 +42,11 @@ public class AuthController {
                     authRequest.getEmail(), authRequest.getPassword()
                     )
             );
+            User user = userRepository.findByEmail(authRequest.getEmail())
+                    .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
             System.out.println("[Login Success] Authentication passed");
-            String token = jwtUtil.generateToken(authRequest.getEmail());
+            String token = jwtUtil.generateToken(user.getId(), user.getEmail(), user.getRole().name());
             System.out.println("[JWT Generated] Token length: " + token.length());
             return ResponseEntity.ok(Map.of("token",token));
 

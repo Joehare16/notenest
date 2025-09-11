@@ -16,15 +16,15 @@ public class JwtTestController{
     }
       // Generate a token for a given email
     @GetMapping("/test/generate")
-    public String generateToken(@RequestParam String email) {
-        return jwtUtil.generateToken(email);
+    public String generateToken(@RequestParam Long userID, @RequestParam String email, @RequestParam String role) {
+        return jwtUtil.generateToken(userID,email,role);
     }
 
-    // Validate a token against a given email
-    @GetMapping("/test/validate")
-    public boolean validateToken(@RequestParam String token, @RequestParam String email) {
-        return jwtUtil.validateToken(token, email);
-    }
+    // // Validate a token against a given email
+    // @GetMapping("/test/validate")
+    // public boolean validateToken(@RequestParam String token, @RequestParam String email) {
+    //     return jwtUtil.validateToken(token, email);
+    // }
 
     // Extract email from token
     @GetMapping("/test/extract")

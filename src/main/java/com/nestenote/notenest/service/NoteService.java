@@ -3,6 +3,7 @@ package com.nestenote.notenest.service;
 import com.nestenote.notenest.model.Note;
 import com.nestenote.notenest.repository.NoteRepository;
 import com.nestenote.notenest.repository.UserRepository;
+import com.nestenote.notenest.model.User;
 import com.nestenote.notenest.dto.NoteRequestDTO;
 import com.nestenote.notenest.dto.NoteResponseDTO;
 import com.nestenote.notenest.exception.NoteNotFoundException;
@@ -29,11 +30,11 @@ public class NoteService {
     }
 
     // converts user inputs restricted by DTOs to a full database entity
-    private Note mapToEntity(NoteRequestDTO dto,String userID) {
+    private Note mapToEntity(NoteRequestDTO dto, User user) {
         Note note = new Note();
         note.setTitle(dto.getTitle());
         note.setContent(dto.getContent());
-        note.setUserId(userID);
+        note.setUser(user);
         note.setCreatedAt(LocalDateTime.now());
         return note;
     }
@@ -49,29 +50,31 @@ public class NoteService {
     }
 
     // Get all notes
-    public List<NoteResponseDTO> getAllUserNotes(String userID) {
-        return noteRepository.findByUserID(userID)
+    public List<NoteResponseDTO> getAllUserNotes(Long userID) {
+        return noteRepository.findByUser_Id(userID)
                 .stream()
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
 
     // Get one note by ID
-    public Optional<NoteResponseDTO> getNoteByID(Long id, String userID) {
+    public Optional<NoteResponseDTO> getNoteByID(Long id, Long userID) {
         Note note = noteRepository.findById(id)
-                .filter(n -> n.getUserId().equals(userID))
+                .filter(n -> n.getUser().getId().equals(userID))
                 .orElseThrow(() -> new NoteNotFoundException(id));
                 
         return Optional.of(mapToDTO(note));
     }
 
     // Create a new note
-    public NoteResponseDTO createNote(NoteRequestDTO dto,String userID) {
+    public NoteResponseDTO createNote(NoteRequestDTO dto,Long userID) {
         if(dto.getTitle() == null || dto.getTitle().isEmpty()) {
             throw new ValidationException("Title cannot be empty");
         }
+        User user = userRepository.findById(userID)
+            .orElseThrow(() -> new ValidationException("User not found"));
         // creates a full note object from dto
-        Note note = mapToEntity(dto, userID);
+        Note note = mapToEntity(dto, user);
         // saves full note into entity
         Note saved = noteRepository.save(note);
         // returns the safe DTO note version
@@ -79,9 +82,9 @@ public class NoteService {
     }
 
     // Update an existing note
-    public Optional<NoteResponseDTO> updateNote(Long id, NoteRequestDTO dto, String userID) {
+    public Optional<NoteResponseDTO> updateNote(Long id, NoteRequestDTO dto, Long userID) {
         return noteRepository.findById(id)
-        .filter(note -> note.getUserId().equals(userID))
+        .filter(note -> note.getUser().getId().equals(userID))
         .map(note -> {
             note.setTitle(dto.getTitle());
             note.setContent(dto.getContent());
@@ -91,9 +94,9 @@ public class NoteService {
     }
 
     // Delete a note by ID
-    public boolean deleteNote(Long id,String userID) {
+    public boolean deleteNote(Long id,Long userID) {
         return noteRepository.findById(id).map(note -> {
-            if(!note.getUserId().equals(userID)) {
+            if(!note.getUser().getId().equals(userID)) {
                 throw new NoteNotFoundException(id);
             }
             noteRepository.delete(note);

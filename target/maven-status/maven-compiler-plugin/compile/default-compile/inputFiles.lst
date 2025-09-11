@@ -5,6 +5,7 @@ C:\Users\joeha\Documents\Work\Projects\notenest\src\main\java\com\nestenote\note
 C:\Users\joeha\Documents\Work\Projects\notenest\src\main\java\com\nestenote\notenest\security\SecurityConfig.java
 C:\Users\joeha\Documents\Work\Projects\notenest\src\main\java\com\nestenote\notenest\model\Role.java
 C:\Users\joeha\Documents\Work\Projects\notenest\src\main\java\com\nestenote\notenest\service\NoteService.java
+C:\Users\joeha\Documents\Work\Projects\notenest\src\main\java\com\nestenote\notenest\security\JwtAuthenticationFilter.java
 C:\Users\joeha\Documents\Work\Projects\notenest\src\main\java\com\nestenote\notenest\dto\NoteResponseDTO.java
 C:\Users\joeha\Documents\Work\Projects\notenest\src\main\java\com\nestenote\notenest\service\CustomUserDetailsService.java
 C:\Users\joeha\Documents\Work\Projects\notenest\src\main\java\com\nestenote\notenest\NotenestBackendApplication.java
